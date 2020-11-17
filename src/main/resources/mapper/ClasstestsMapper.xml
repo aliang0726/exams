@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.exams.dao.ClasstestsMapper">
+  <resultMap id="BaseResultMap" type="com.test.exams.bean.Classtests">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="SectionId" jdbcType="INTEGER" property="sectionid" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="Answers" jdbcType="VARCHAR" property="answers" />
+    <result column="RightAnswer" jdbcType="VARCHAR" property="rightanswer" />
+     <result column="Anlylize" jdbcType="VARCHAR" property="anlylize" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, SectionId, Title, Answers, RightAnswer,Anlylize
+  </sql>
+  <select id="selectByExample" parameterType="com.test.exams.bean.ClasstestsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from classtests
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classtests
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from classtests
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.test.exams.bean.ClasstestsExample">
+    delete from classtests
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.test.exams.bean.Classtests">
+    insert into classtests (Id, SectionId, Title, 
+      Answers, RightAnswer,Anlylize)
+    values (#{id,jdbcType=INTEGER}, #{sectionid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{answers,jdbcType=VARCHAR}, #{rightanswer,jdbcType=VARCHAR},#{anlylize,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.exams.bean.Classtests">
+    insert into classtests
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="sectionid != null">
+        SectionId,
+      </if>
+      <if test="title != null">
+        Title,
+      </if>
+      <if test="answers != null">
+        Answers,
+      </if>
+      <if test="rightanswer != null">
+        RightAnswer,
+      </if>
+        <if test="anlylize != null">
+            Anlylize,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sectionid != null">
+        #{sectionid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="answers != null">
+        #{answers,jdbcType=VARCHAR},
+      </if>
+      <if test="rightanswer != null">
+        #{rightanswer,jdbcType=VARCHAR},
+      </if>
+        <if test="anlylize != null">
+            #{anlylize,jdbcType=VARCHAR},
+        </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.test.exams.bean.ClasstestsExample" resultType="java.lang.Long">
+    select count(*) from classtests
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update classtests
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sectionid != null">
+        SectionId = #{record.sectionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        Title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answers != null">
+        Answers = #{record.answers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightanswer != null">
+        RightAnswer = #{record.rightanswer,jdbcType=VARCHAR},
+      </if>
+        <if test="record.anlylize != null">
+            Anlylize =  #{record.anlylize,jdbcType=VARCHAR}
+        </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update classtests
+    set Id = #{record.id,jdbcType=INTEGER},
+      SectionId = #{record.sectionid,jdbcType=INTEGER},
+      Title = #{record.title,jdbcType=VARCHAR},
+      Answers = #{record.answers,jdbcType=VARCHAR},
+      RightAnswer = #{record.rightanswer,jdbcType=VARCHAR},
+      Anlylize =  #{record.anlylize,jdbcType=VARCHAR},
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.exams.bean.Classtests">
+    update classtests
+    <set>
+      <if test="sectionid != null">
+        SectionId = #{sectionid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="answers != null">
+        Answers = #{answers,jdbcType=VARCHAR},
+      </if>
+      <if test="rightanswer != null">
+        RightAnswer = #{rightanswer,jdbcType=VARCHAR},
+      </if>
+        <if test="anlylize != null">
+            Anlylize = #{anlylize,jdbcType=VARCHAR},
+        </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.exams.bean.Classtests">
+    update classtests
+    set SectionId = #{sectionid,jdbcType=INTEGER},
+      Title = #{title,jdbcType=VARCHAR},
+      Answers = #{answers,jdbcType=VARCHAR},
+      RightAnswer = #{rightanswer,jdbcType=VARCHAR},
+       Anlylize = #{anlylize,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
